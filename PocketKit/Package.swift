@@ -36,7 +36,8 @@ let package = Package(
         .package(url: "https://github.com/braze-inc/braze-swift-sdk.git", from: "9.3.0"),
         .package(url: "https://github.com/adjust/ios_sdk", from: "4.38.3"),
         .package(url: "https://github.com/RNCryptor/RNCryptor.git", from: "5.1.0"),
-        .package(url: "https://github.com/vadymmarkov/Fakery", from: "5.1.0")
+        .package(url: "https://github.com/vadymmarkov/Fakery", from: "5.1.0"),
+        .package(url: "https://github.com/supabase/supabase-swift.git", from: "2.0.0")
     ],
     targets: [
         .binaryTarget(
@@ -112,7 +113,8 @@ let package = Package(
                 "Localization",
                 "RNCryptor",
                 .product(name: "BrazeKit", package: "braze-swift-sdk"),
-                .product(name: "Sentry", package: "sentry-cocoa")
+                .product(name: "Sentry", package: "sentry-cocoa"),
+                .product(name: "Supabase", package: "supabase-swift")
             ]
         ),
         .testTarget(

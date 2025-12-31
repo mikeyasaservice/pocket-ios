@@ -16,6 +16,8 @@ struct Keys {
     let groupID: String
     let adjustAppToken: String
     let adjustSignUpEventToken: String
+    let supabaseURL: String
+    let supabaseAnonKey: String
 
     private init() {
         guard let info = Bundle.main.infoDictionary else {
@@ -62,6 +64,14 @@ struct Keys {
             fatalError("Unable to extract adjustEventToken from main bundle")
         }
 
+        guard let supabaseURL = info["SupabaseURL"] as? String else {
+            fatalError("Unable to extract SupabaseURL from main bundle")
+        }
+
+        guard let supabaseAnonKey = info["SupabaseAnonKey"] as? String else {
+            fatalError("Unable to extract SupabaseAnonKey from main bundle")
+        }
+
         self.pocketApiConsumerKey = UIDevice.current.userInterfaceIdiom == .pad ? pocketApiConsumerKeyPad : pocketApiConsumerKey
         self.sentryDSN = sentryDSN
         self.brazeAPIEndpoint = brazeAPIEndpoint
@@ -71,5 +81,7 @@ struct Keys {
         self.groupID = groupID
         self.adjustAppToken = adjustToken
         self.adjustSignUpEventToken = adjustEventToken
+        self.supabaseURL = supabaseURL
+        self.supabaseAnonKey = supabaseAnonKey
     }
 }

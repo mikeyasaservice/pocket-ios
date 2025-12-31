@@ -90,6 +90,10 @@
 	<string>$(POCKET_PREMIUM_MONTHLY)</string>
 	<key>SentryDSN</key>
 	<string>$(SENTRY_DSN)</string>
+	<key>SupabaseURL</key>
+	<string>$(SUPABASE_URL)</string>
+	<key>SupabaseAnonKey</key>
+	<string>$(SUPABASE_ANON_KEY)</string>
 	<key>SnowplowEndpoint</key>
 	<string>$(SNOWPLOW_ENDPOINT)</string>
 	<key>SnowplowIdentifier</key>
