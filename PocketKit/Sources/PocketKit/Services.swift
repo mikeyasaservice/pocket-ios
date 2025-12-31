@@ -68,7 +68,13 @@ struct Services {
         Log.breadcrumb(category: "SWiftUIHome", level: .debug, message: "Persistent container initialized.")
         urlSession = URLSession.shared
 
-        let snowplow = PocketSnowplowTracker()
+        // TODO: STASHPOP - Snowplow analytics crashes on Xcode 26/iOS 18+
+        // Error: "Dictionary literal contains duplicate keys" in Session.swift
+        // Options: 1) Update snowplow-objc-tracker when fix released
+        //          2) Replace with our own analytics (Mixpanel, PostHog, etc.)
+        //          3) Remove analytics entirely for MVP
+        // Original: let snowplow = PocketSnowplowTracker()
+        let snowplow: Analytics.SnowplowTracker = NoOpSnowplowTracker()
         tracker = PocketTracker(snowplow: snowplow)
 
         appSession = AppSession(groupID: Keys.shared.groupID)

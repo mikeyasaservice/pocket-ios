@@ -9,3 +9,12 @@ public protocol SnowplowTracker: Sendable {
     func addPersistentEntity(_ entity: Entity)
     func resetPersistentEntities(_ entities: [Entity])
 }
+
+/// No-op tracker for when Snowplow is disabled or crashes
+/// Used for Stash Pop - we don't need Mozilla's analytics
+public final class NoOpSnowplowTracker: SnowplowTracker {
+    public init() {}
+    public func track(event: SelfDescribing) {}
+    public func addPersistentEntity(_ entity: Entity) {}
+    public func resetPersistentEntities(_ entities: [Entity]) {}
+}

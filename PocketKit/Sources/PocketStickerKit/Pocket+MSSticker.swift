@@ -9,6 +9,18 @@ enum StickerError: Error {
     case fileLoadError(String)
 }
 
+// Helper to access the bundle across packages/extensions without relying on Bundle.module
+private final class StickerBundleToken {}
+private var stickerBundle: Bundle {
+    // Try the bundle where this code lives (works for frameworks/SPM resource bundles)
+    let candidate = Bundle(for: StickerBundleToken.self)
+    if candidate != .main {
+        return candidate
+    }
+    // Fallback to main for app/extension targets
+    return .main
+}
+
 extension MSSticker {
   enum PocketSticker: String {
     case BestOf2023Top1Percent,
@@ -22,7 +34,7 @@ extension MSSticker {
 
   // https://developer.apple.com/design/human-interface-guidelines/imessage-apps-and-stickers
   convenience init(item: PocketSticker) throws {
-    guard let fileURL =  Bundle.module.url(forResource: "\(item.rawValue)-Regular", withExtension: "png", subdirectory: "Stickers") else {
+    guard let fileURL = stickerBundle.url(forResource: "\(item.rawValue)-Regular", withExtension: "png", subdirectory: "Stickers") else {
         throw StickerError.fileLoadError("Could not load the file for the sticker \(item.rawValue)")
     }
 
